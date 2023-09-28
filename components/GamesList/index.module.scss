@@ -1,0 +1,48 @@
+.games {
+  &List {
+    &Container {
+      max-width: 1920px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    &Header {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  }
+
+  &Filters {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+
+  &FilterProvider {
+    margin-right: 20px;
+  }
+}
+
+.filterLabel {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.gamesCards {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -20px;
+}
+
+.showMoreButton {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
