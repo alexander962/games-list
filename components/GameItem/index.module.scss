@@ -20,6 +20,12 @@
       display: flex;
       width: calc((100%/12)*2);
       padding: 0 20px;
+      @media screen and (max-width: 1024px) {
+        width: calc((100%/12)*4);
+      }
+      @media screen and (max-width: 768px) {
+        width: calc((100%/12)*6);
+      }
     }
 
     &Inner {
