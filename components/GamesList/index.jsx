@@ -44,7 +44,7 @@ const GamesList = ({ games }) => {
   const filterGames = () => {
     return Object.entries(games)
       .sort(([, gameA], [, gameB]) => {
-        return gameA.collections.popularity - gameB.collections.popularity;
+        return gameB.collections.popularity - gameA.collections.popularity;
       })
       .filter(([id, game]) => {
         if (filterProvider && game.provider !== filterProvider) {

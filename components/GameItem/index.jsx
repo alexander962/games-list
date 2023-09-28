@@ -3,7 +3,6 @@ import styles from "./index.module.scss";
 import Link from "next/link";
 
 const GameItem = ({ id, data }) => {
-  console.log(data?.provider);
   const linkGame = data?.title.replace(/ /g, "_");
   const imageUrl = `https://cdn2.softswiss.net/i/s2/${id}.png`;
   return (
