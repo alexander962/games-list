@@ -4,6 +4,7 @@ import GamesList from "../components/GamesList";
 import gamesData from "../public/games.json";
 
 export default function Home({ games }) {
+  // Получение данных с API, если бы она работала(сейчас она отдаёт пустой объект)
   // const { data: games, isLoading, isError } = useGetGamesQuery();
   //
   // if (isLoading) {
@@ -17,7 +18,7 @@ export default function Home({ games }) {
   return (
     <div>
       <Head>
-        <title>Game list</title>
+        <title>Games list</title>
         <meta name="description" content="Game list" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -30,12 +31,15 @@ export default function Home({ games }) {
 }
 export const getServerSideProps = async () => {
   try {
+    // Этот блок try/catch загружает данные игр из статического JSON-файла.
+    // В реальном приложении данные могут быть получены из API или базы данных.
     return {
       props: {
         games: gamesData,
       },
     };
   } catch (error) {
+    // В случае ошибки при загрузке данных, возвращается пустой массив игр.
     return {
       props: {
         games: [],

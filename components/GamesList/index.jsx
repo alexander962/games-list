@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import GameItem from "../GameItem";
 import styles from "./index.module.scss";
 
@@ -7,17 +7,26 @@ const GamesList = ({ games }) => {
   const [filterProvider, setFilterProvider] = useState("");
   const [filterCurrency, setFilterCurrency] = useState("");
   const [filteredGameCount, setFilteredGameCount] = useState(0);
-  const [currencies, setCurrencies] = useState([]);
+
+  const getUniqueCurrencies = () => {
+    const currenciesSet = new Set();
+    for (const [, game] of Object.entries(games)) {
+      for (const currency in game.real) {
+        currenciesSet.add(currency);
+      }
+    }
+    return Array.from(currenciesSet);
+  };
+
+  const currencies = useMemo(() => {
+    const uniqueCurrencies = getUniqueCurrencies();
+    return uniqueCurrencies;
+  }, [games]);
 
   useEffect(() => {
     const filteredGames = filterGames();
     setFilteredGameCount(filteredGames.length);
   }, [filterProvider, filterCurrency, visibleGames]);
-
-  useEffect(() => {
-    const uniqueCurrencies = getUniqueCurrencies();
-    setCurrencies(uniqueCurrencies);
-  }, [games]);
 
   const showMoreGames = () => {
     setVisibleGames((prevVisibleGames) => prevVisibleGames + 12);
@@ -31,17 +40,8 @@ const GamesList = ({ games }) => {
     return Array.from(providersSet);
   };
 
-  const getUniqueCurrencies = () => {
-    const currenciesSet = new Set();
-    for (const [, game] of Object.entries(games)) {
-      for (const currency in game.real) {
-        currenciesSet.add(currency);
-      }
-    }
-    return Array.from(currenciesSet);
-  };
-
   const filterGames = () => {
+    const gameTitles = new Set(); // Для проверки уникальности названий игр
     return Object.entries(games)
       .sort(([, gameA], [, gameB]) => {
         return gameB.collections.popularity - gameA.collections.popularity;
@@ -54,6 +54,12 @@ const GamesList = ({ games }) => {
         if (filterCurrency && !game.real[filterCurrency]) {
           return false;
         }
+
+        const title = game.title.replace(/\s+/g, " "); // Убираем двойные пробелы
+        if (gameTitles.has(title)) {
+          return false; // Игра с таким названием уже была добавлена
+        }
+        gameTitles.add(title);
 
         return true;
       });
