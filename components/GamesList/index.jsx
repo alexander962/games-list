@@ -41,7 +41,7 @@ const GamesList = ({ games }) => {
   };
 
   const filterGames = () => {
-    const gameTitles = new Set(); // Для проверки уникальности названий игр
+    const gameTitles = new Set(); // To check the uniqueness of game names
     return Object.entries(games)
       .sort(([, gameA], [, gameB]) => {
         return gameB.collections.popularity - gameA.collections.popularity;
@@ -55,9 +55,9 @@ const GamesList = ({ games }) => {
           return false;
         }
 
-        const title = game.title.replace(/\s+/g, " "); // Убираем двойные пробелы
+        const title = game.title.replace(/\s+/g, " "); // Remove double spaces
         if (gameTitles.has(title)) {
-          return false; // Игра с таким названием уже была добавлена
+          return false; // A game with the same name has already been added
         }
         gameTitles.add(title);
 
