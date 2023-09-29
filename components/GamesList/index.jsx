@@ -10,7 +10,7 @@ const GamesList = ({ games }) => {
 
   const getUniqueCurrencies = () => {
     const currenciesSet = new Set();
-    for (const [, game] of Object.entries(games)) {
+    for (const game of Object.values(games)) {
       for (const currency in game.real) {
         currenciesSet.add(currency);
       }
